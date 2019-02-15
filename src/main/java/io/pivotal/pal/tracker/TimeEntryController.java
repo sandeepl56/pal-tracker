@@ -10,22 +10,22 @@ import java.util.List;
 @RequestMapping("/time-entries")
 public class TimeEntryController {
 
-    private TimeEntryRepository timeEntryRepo;
-
+    private TimeEntryRepository timeEntriesRepo;
 
     public TimeEntryController(TimeEntryRepository timeEntriesRepo) {
-        this.timeEntryRepo = timeEntriesRepo;
+        this.timeEntriesRepo = timeEntriesRepo;
     }
 
     @PostMapping
-    public ResponseEntity<TimeEntry> create(@RequestBody TimeEntry timeEntry){
-        TimeEntry createdTimeEntry = timeEntryRepo.create(timeEntry);
-        return new ResponseEntity<>(createdTimeEntry,HttpStatus.CREATED);
+    public ResponseEntity<TimeEntry> create(@RequestBody TimeEntry timeEntry) {
+        TimeEntry createdTimeEntry = timeEntriesRepo.create(timeEntry);
+
+        return new ResponseEntity<>(createdTimeEntry, HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<TimeEntry> read(@PathVariable Long id){
-        TimeEntry timeEntry = timeEntryRepo.find(id);
+    public ResponseEntity<TimeEntry> read(@PathVariable Long id) {
+        TimeEntry timeEntry = timeEntriesRepo.find(id);
         if (timeEntry != null) {
             return new ResponseEntity<>(timeEntry, HttpStatus.OK);
         } else {
@@ -34,13 +34,13 @@ public class TimeEntryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TimeEntry>> list(){
-        return new ResponseEntity<>(timeEntryRepo.list(), HttpStatus.OK);
+    public ResponseEntity<List<TimeEntry>> list() {
+        return new ResponseEntity<>(timeEntriesRepo.list(), HttpStatus.OK);
     }
 
     @PutMapping("{id}")
     public ResponseEntity<TimeEntry> update(@PathVariable Long id, @RequestBody TimeEntry timeEntry) {
-        TimeEntry updatedTimeEntry = timeEntryRepo.update(id, timeEntry);
+        TimeEntry updatedTimeEntry = timeEntriesRepo.update(id, timeEntry);
         if (updatedTimeEntry != null) {
             return new ResponseEntity<>(updatedTimeEntry, HttpStatus.OK);
         } else {
@@ -50,7 +50,7 @@ public class TimeEntryController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<TimeEntry> delete(@PathVariable Long id) {
-        timeEntryRepo.delete(id);
+        timeEntriesRepo.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
