@@ -14,7 +14,6 @@ buildscript {
     }
 }
 
-
 plugins {
     id "java"
     id "org.flywaydb.flyway" version "5.0.5"
@@ -62,4 +61,8 @@ flyway {
 
 task testMigrate(type: FlywayMigrateTask) {
     url = testDbUrl
+}
+
+springBoot {
+    buildInfo()
 }
